@@ -1,21 +1,17 @@
 FROM node:15 as builder
 
-WORKDIR
+WORKDIR /app
 
-COPY
+COPY package.json package-lock.json ./
 
-RUN 
+RUN npm ci
 
-COPY
+COPY . .
 
-RUN 
+RUN npm run build
 
-FROM
+FROM nginx
 
-WORKDIR
+COPY --from=builder /app/build /usr/share/nginx/html
 
-COPY
-
-RUN 
-
-ENTRYPOINT 
+EXPOSE 80
